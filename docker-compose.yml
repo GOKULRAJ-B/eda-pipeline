@@ -1,0 +1,11 @@
+services:
+  eda_pipeline:
+    build: .
+    container_name: eda_pipeline
+
+    volumes:
+      - ./data:/app/data
+      - ./cleaned_data:/app/cleaned_data
+      - ./reports:/app/reports
+
+    command: python watcher.py

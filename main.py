@@ -16,8 +16,7 @@ def run_pipeline(file_path):
 
     save_clean_data(df_clean, file_path)
 
-    generate_report(df_clean)
-
+    generate_report(df_clean, file_path)
 
 if __name__ == "__main__":
     run_pipeline("data/raw_dataset.csv")
