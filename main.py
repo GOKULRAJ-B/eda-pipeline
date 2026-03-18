@@ -9,8 +9,8 @@ def run_pipeline(file_path):
 
     df = load_dataset(file_path)
 
-    dataset_metadata(df)
-    data_quality_check(df)
+   # dataset_metadata(df)
+   #  data_quality_check(df)
 
     df_clean = clean_data(df)
 
