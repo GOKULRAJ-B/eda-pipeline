@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build-and-test:
+  build-test-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,13 +18,18 @@ jobs:
         python-version: '3.10'
 
     - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
+      run: pip install -r requirements.txt
 
     - name: Run pipeline test
-      run: |
-        python main.py data/raw_dataset.csv || true
+      run: python main.py data/raw_dataset.csv
+
+
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
 
     - name: Build Docker image
-      run: |
-        docker build -t eda-pipeline .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/eda-pipeline:latest .
+
+    - name: Push Docker image
+      run: docker push ${{ secrets.DOCKER_USERNAME }}/eda-pipeline:latest
